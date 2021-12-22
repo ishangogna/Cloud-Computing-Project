@@ -7,7 +7,7 @@ const ResultsPage = () => {
             "username" : "thefriendlyuser",
             "password" : "Password1"
         }
-        const url = "https://e2rfuo7dnj.execute-api.us-east-1.amazonaws.com/prod/login"
+        const url = "https://74duznivyh.execute-api.us-east-1.amazonaws.com/prod/login"
         fetch(url, {
             method : "POST",
             headers : {
