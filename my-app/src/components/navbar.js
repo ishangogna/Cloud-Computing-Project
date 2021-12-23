@@ -12,13 +12,15 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../contexts/auth';
 
 
 const pages = ['Home', 'Find', 'Results'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ResponsiveAppBar = ({showFind, showResult}) => {
-
+  const { dispatch } = useContext(AuthContext)
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -130,7 +132,7 @@ const ResponsiveAppBar = ({showFind, showResult}) => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseNavMenu}>
+                <MenuItem key={setting} onClick={setting === 'Logout' ? (setting) => dispatch({type : 'DE-AUTHENTICATE'}) : handleCloseNavMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
