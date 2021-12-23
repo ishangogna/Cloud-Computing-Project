@@ -17,7 +17,8 @@ import { useNavigate } from 'react-router-dom';
 const pages = ['Home', 'Find', 'Results'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = ({showFind, showResult}) => {
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 

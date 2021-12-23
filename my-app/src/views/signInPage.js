@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useContext} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,7 +15,11 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ResponsiveAppBar from '../components/navbar';
 import colab from '../utils/images/colab2.png'
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../contexts/auth'
+
 function Copyright(props) {
+ 
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
@@ -29,15 +34,36 @@ function Copyright(props) {
 
 const theme = createTheme();
 
+const handleLogin = (username, password, dispatch) =>  {
+
+  const body = {
+    "username" : username,
+    "password" : password
+}
+const url = "https://74duznivyh.execute-api.us-east-1.amazonaws.com/prod/login"
+fetch(url, {
+    method : "POST",
+    headers : {
+        'content-type' : 'application/json',
+    },
+    body : JSON.stringify(body)
+}).then(response => response.json())
+.then(data => data['idToken'] ? dispatch({type : 'AUTHENTICATE'}) : alert('Wrong Credentials'))
+.catch(err => console.log('error : ' + err))
+
+}
+
 export default function SignInSide() {
+  const { user, dispatch } = useContext(AuthContext);
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    // console.log({
+    //   email: data.get('username'),
+    //   password: data.get('password'),
+    // });
+    handleLogin(data.get('username'), data.get('password'), dispatch)
   };
 
   return (
@@ -81,10 +107,10 @@ export default function SignInSide() {
                 margin="normal"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="username"
                 autoFocus
               />
               <TextField
