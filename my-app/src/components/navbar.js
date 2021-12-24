@@ -17,7 +17,7 @@ import { AuthContext } from '../contexts/auth';
 
 
 const pages = ['Home', 'Find', 'Results'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Dashboard', 'Logout'];
 
 const ResponsiveAppBar = ({showFind, showResult}) => {
   const { dispatch } = useContext(AuthContext)
@@ -50,7 +50,7 @@ const ResponsiveAppBar = ({showFind, showResult}) => {
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
-            LOGO
+            ProjectMatcher
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -132,7 +132,7 @@ const ResponsiveAppBar = ({showFind, showResult}) => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={setting === 'Logout' ? (setting) => dispatch({type : 'DE-AUTHENTICATE'}) : handleCloseNavMenu}>
+                <MenuItem key={setting} onClick={setting === 'Logout' ? (setting) => dispatch({type : 'DE-AUTHENTICATE'}) : () => navigate(`/dashboard`)}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}

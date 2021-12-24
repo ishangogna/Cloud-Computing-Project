@@ -9,6 +9,8 @@ import ResultsPage from './views/resultsPage';
 import { useContext } from 'react'
 import { AuthContext } from './contexts/auth';
 import LoggedInPage from './views/loggedInPage';
+import SignUpSide from './views/signupPage';
+import DashboardPage from './views/dashboard';
 
 function ActualApp() {
   const { user } = useContext(AuthContext) 
@@ -28,6 +30,8 @@ function ActualApp() {
             {/* <Route path = "/signin" element = {<SignInSide/>}/> */}
             <Route path = "/find" element = {<FindPage/>}/>
             <Route path = "/results" element = {<ResultsPage/>}/>
+            <Route path = "/signup" element = {<SignUpSide/>}/>
+            <Route path = "/dashboard" element = {<DashboardPage/>}/>
           </Routes>
         </div>
       </Router>

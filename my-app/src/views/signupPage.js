@@ -43,9 +43,11 @@ const handleLogin = (username, password, dispatch) =>  {
   
   const body = {
     "username" : username,
-    "password" : password
+    "password" : password,
+    "email" : `${username}@email.com`,
+    "interests" : []
 }
-const url = "https://74duznivyh.execute-api.us-east-1.amazonaws.com/prod/login"
+const url = "https://74duznivyh.execute-api.us-east-1.amazonaws.com/prod/users"
 fetch(url, {
     method : "POST",
     headers : {
@@ -53,25 +55,20 @@ fetch(url, {
     },
     body : JSON.stringify(body)
 }).then(response => response.json())
-.then(data => { console.log(data); data['idToken'] ? dispatch({type : 'AUTHENTICATE'}) : alert('Wrong Credentials') })
-.catch(err => console.log('error : ' + err))
+.then(data => { console.log(data); alert("Account Created. Please return to login.") })
+.catch(err => alert(err))
 
 }
 
-export default function SignInSide() {
+export default function SignUpSide() {
   const navigate = useNavigate();
+
   const { user, dispatch } = useContext(AuthContext);
   const { current, dispatchUser } = useContext(UserContext);
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    // console.log({
-    //   email: data.get('username'),
-    //   password: data.get('password'),
-    // });
     handleUser(data.get('username'), data.get('password'), dispatchUser)
-
     handleLogin(data.get('username'), data.get('password'), dispatch)
   };
 
@@ -109,7 +106,7 @@ export default function SignInSide() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              Sign Up
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
@@ -117,7 +114,7 @@ export default function SignInSide() {
                 required
                 fullWidth
                 id="username"
-                label="Username"
+                label="Create Username"
                 name="username"
                 autoComplete="username"
                 autoFocus
@@ -127,7 +124,7 @@ export default function SignInSide() {
                 required
                 fullWidth
                 name="password"
-                label="Password"
+                label="Create Password"
                 type="password"
                 id="password"
                 autoComplete="current-password"
@@ -139,18 +136,14 @@ export default function SignInSide() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign In
+                Sign Up
               </Button>
               <Grid container>
                 <Grid item xs>
                   
                 </Grid>
                 <Grid item>
-                  {/* <Link href="/signup" variant="body2">
-                    {"Don't have an account? Sign Up"}
-                  </Link> */}
-                  <div style = {{ cursor : 'pointer', color : 'blue' }} onClick = {()=> navigate('/signup')}>Don't have an account? Sign up</div>
-
+                <div style = {{ cursor : 'pointer', color : 'blue' }} onClick = {()=> navigate('/')}>Go back to Login Page.</div>
                 </Grid>
               </Grid>
               <Copyright sx={{ mt: 5 }} />

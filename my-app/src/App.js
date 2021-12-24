@@ -8,13 +8,17 @@ import ResultsPage from './views/resultsPage';
 import AuthContextProvider, {AuthContext} from './contexts/auth'
 import { useContext } from 'react'
 import ActualApp from './actualApp';
+import UserContextProvider from './contexts/user';
 
 function App() {
 
   return (
     <AuthContextProvider>
-      <ActualApp/>
+      <UserContextProvider>
+      `<ActualApp/>
+      </UserContextProvider>
     </AuthContextProvider>
+    
   );
 }
 
